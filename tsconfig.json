@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "outDir": "dist",
+    "module": "commonjs",
+    "rootDir": "src",
+    "declaration": true,
+    "strict": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "experimentalDecorators": true
+  }
+}

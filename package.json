@@ -1,0 +1,88 @@
+{
+  "name": "ts-expect",
+  "version": "0.0.0",
+  "description": "Checks TypeScript types match expected values",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "LICENSE"
+  ],
+  "scripts": {
+    "prettier": "prettier --write",
+    "lint": "tslint \"src/**/*.ts\" --project tsconfig.json",
+    "format": "npm run prettier -- README.md \"*.json\" \"src/**/*.ts\"",
+    "build": "rimraf dist && tsc",
+    "specs": "jest --coverage",
+    "test": "npm run -s lint && npm run -s build && npm run -s specs",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/TypeStrong/ts-expect.git"
+  },
+  "keywords": [
+    "typescript",
+    "type-check",
+    "assert",
+    "expect",
+    "type",
+    "check",
+    "types",
+    "typings"
+  ],
+  "author": {
+    "name": "Blake Embrey",
+    "email": "hello@blakeembrey.com",
+    "url": "http://blakeembrey.me"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TypeStrong/ts-expect/issues"
+  },
+  "homepage": "https://github.com/TypeStrong/ts-expect",
+  "jest": {
+    "roots": [
+      "<rootDir>/src/"
+    ],
+    "transform": {
+      "\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(tsx?|jsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": [
+      "npm run prettier",
+      "git add"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.0",
+    "husky": "^1.3.1",
+    "jest": "^24.1.0",
+    "lint-staged": "^8.1.0",
+    "prettier": "^1.16.0",
+    "rimraf": "^2.6.3",
+    "ts-jest": "^24.0.0",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.2.4"
+  }
+}
