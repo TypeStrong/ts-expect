@@ -49,6 +49,14 @@ function doSomething(type: Type) {
 expectType<TypeOf<[number], Parameters<typeof validateType>>>(false);
 ```
 
+## Prior Works
+
+Some great prior works have been mentioned after publishing this package:
+
+- [`tsd-check`](https://github.com/SamVerschueren/tsd-check/issues/10) is a CLI that runs the TypeScript type checker over assertions
+- [`type-plus`](https://github.com/unional/type-plus) comes with various type and runtime TypeScript assertions
+- [`static-type-assert`](https://github.com/ksxnodemodules/static-type-assert) exposes a similar API surface with some type assertion functions
+
 ## License
 
 MIT
