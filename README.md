@@ -29,7 +29,7 @@ expectType<string>(123); // Compiler error!
 export Type = "foo" | "bar";
 
 function validateType(type: string): type is Type {
-  if (type === 'foo') {
+  if (type === "foo") {
     expectType<TypeOf<typeof type, Type>>(true); // Compiler error! Forgot `type === "bar"`.
     return true;
   }
@@ -38,14 +38,15 @@ function validateType(type: string): type is Type {
 }
 
 function doSomething(type: Type) {
-  if (type === 'foo') {
-    return; // Do something with `foo`.
-  }
+  if (type === "foo") return; // Do something with `foo`.
 
   expectType<never>(type); // Compiler error! Forgot `type === "bar"`.
 
   throw new TypeError(`Unknown type: ${type}`)
 }
+
+// Test function signatures.
+expectType<TypeOf<[number], Parameters<typeof validateType>>>(false);
 ```
 
 ## License
