@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transform should strip expects 1`] = `
+"\\"use strict\\";
+exports.__esModule = true;
+var ts_expect_1 = require(\\"ts-expect\\");
+function test(expectType) {
+    return expectType();
+}
+var test2 = function (expectType) { return expectType(); };
+function test3(noShadow) {
+    void 0;
+    return noShadow;
+}
+test(ts_expect_1.expectType);
+test2(function () { return undefined; });
+test3(123);
+void 0;
+var expectedType = ts_expect_1.expectType;
+expectedType(\\"\\");
+"
+`;
+
+exports[`transform should strip expects 2`] = `
+"\\"use strict\\";
+exports.__esModule = true;
+var ts_expect_1 = require(\\"ts-expect\\");
+void 0;
+"
+`;
+
+exports[`transform should strip expects 3`] = `
+"\\"use strict\\";
+exports.__esModule = true;
+var expect = require(\\"ts-expect\\");
+void 0;
+"
+`;

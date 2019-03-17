@@ -8,6 +8,10 @@
     "strict": true,
     "sourceMap": true,
     "inlineSources": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "baseUrl": "src",
+    "paths": {
+      "ts-expect": ["."]
+    }
   }
 }
