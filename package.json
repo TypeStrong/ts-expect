@@ -1,6 +1,6 @@
 {
   "name": "ts-expect",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Checks TypeScript types match expected values",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
