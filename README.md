@@ -18,9 +18,12 @@ npm install ts-expect --save
 ## Usage
 
 ```ts
-import { expectType, TypeOf } from "ts-expect";
+import { expectType, TypeOf, TypeEqual } from "ts-expect";
 
 expectType<string>(123); // Compiler error!
+
+expectType<TypeOf<number, 123>>(true);
+expectType<TypeEqual<"test", "test">>(true);
 ```
 
 ### Examples
