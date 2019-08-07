@@ -29,7 +29,7 @@ expectType<TypeEqual<"test", "test">>(true);
 ### Examples
 
 ```ts
-export Type = "foo" | "bar";
+type Type = "foo" | "bar";
 
 function validateType(type: string): type is Type {
   if (type === "foo") {
