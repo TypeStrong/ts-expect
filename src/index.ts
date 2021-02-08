@@ -1,14 +1,32 @@
 /**
- * Checks that `T` is of type `U`.
+ * Checks that `Value` is assignable to `Target`. For example:
+ *
+ * ```js
+ * TypeOf<number, 123> //=> true
+ * TypeOf<123, number> //=> false
+ * ```
  */
-export type TypeOf<T, U> = Exclude<U, T> extends never ? true : false;
+export type TypeOf<Target, Value> = Exclude<Value, Target> extends never
+  ? true
+  : false;
 
 /**
- * Checks that `T` is equal to `U`.
+ * Checks that `Value` is equal to the same type as `Target`. For example:
+ *
+ * ```js
+ * TypeEqual<number, number> //=> true
+ * TypeEqual<number, 123> //=> false
+ * TypeEqual<123, number> //=> false
+ * TypeEqual<123, 123> //=> true
+ * ```
  */
-export type TypeEqual<T, U> = Exclude<T, U> extends never ? Exclude<U, T> extends never ? true : false : false;
+export type TypeEqual<Target, Value> = Exclude<Target, Value> extends never
+  ? Exclude<Value, Target> extends never
+    ? true
+    : false
+  : false;
 
 /**
  * Assert the parameter is of a specific type.
  */
-export const expectType = <T>(_: T): void => undefined;
+export const expectType = <T>(condition: T): void => void 0;
