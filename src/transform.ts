@@ -41,12 +41,12 @@ export default function(): ts.TransformerFactory<ts.SourceFile> {
 
       if (ts.isCallExpression(node)) {
         if (keywords.has(node.expression.getText())) {
-          return ts.factory.createVoidZero();
+          return ts.factory.createEmptyStatement();
         }
 
         const token = node.expression.getFirstToken();
         if (token && keywords.has(token.getText())) {
-          return ts.factory.createVoidZero();
+          return ts.factory.createEmptyStatement();
         }
 
         return node;
