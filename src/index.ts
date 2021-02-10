@@ -27,6 +27,11 @@ export type TypeEqual<Target, Value> = Exclude<Target, Value> extends never
   : false;
 
 /**
- * Assert the parameter is of a specific type.
+ * Asserts the `value` type is assignable to the generic `Type`.
+ *
+ * ```ts
+ * expectType<number>(123);
+ * expectType<boolean>(true);
+ * ```
  */
-export const expectType = <T>(condition: T): void => void 0;
+export const expectType = <Type>(value: Type): void => void 0;
