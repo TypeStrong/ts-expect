@@ -1,5 +1,5 @@
 /**
- * Checks that `Value` is assignable to `Target`. For example:
+ * Checks that `Value` is assignable to `Target`.
  *
  * ```ts
  * expectType<TypeOf<number, 123>>(true);
@@ -11,7 +11,7 @@ export type TypeOf<Target, Value> = Exclude<Value, Target> extends never
   : false;
 
 /**
- * Checks that `Value` is equal to the same type as `Target`. For example:
+ * Checks that `Value` is equal to the same type as `Target`.
  *
  * ```ts
  * expectType<TypeEqual<123, 123>>(true);
