@@ -1,3 +1,3 @@
-import { expectType, TypeOf } from 'ts-expect'
+import { expectType, TypeOf } from "ts-expect";
 
 expectType<TypeOf<string, string>>(true);

@@ -3,7 +3,7 @@ import * as ts from "typescript";
 /**
  * Strip TypeScript expectations from runtime code.
  */
-export default function(): ts.TransformerFactory<ts.SourceFile> {
+export default function (): ts.TransformerFactory<ts.SourceFile> {
   function visitor(
     context: ts.TransformationContext,
     sourceFile: ts.SourceFile
@@ -18,7 +18,7 @@ export default function(): ts.TransformerFactory<ts.SourceFile> {
           const { namedBindings } = node.importClause;
 
           if (namedBindings) {
-            ts.forEachChild(namedBindings, x => keywords.add(x.getText()));
+            ts.forEachChild(namedBindings, (x) => keywords.add(x.getText()));
           }
 
           return node; // Let minifier handle this.
@@ -26,13 +26,13 @@ export default function(): ts.TransformerFactory<ts.SourceFile> {
       }
 
       if (ts.isFunctionLike(node)) {
-        const oldKeywords = new Set(keywords)
+        const oldKeywords = new Set(keywords);
 
         // Remove shadowed keywords.
         node.parameters
-          .map(x => x.name.getText())
-          .filter(x => keywords.has(x))
-          .forEach(x => keywords.delete(x));
+          .map((x) => x.name.getText())
+          .filter((x) => keywords.has(x))
+          .forEach((x) => keywords.delete(x));
 
         const result = ts.visitEachChild(node, visit, context);
         keywords = oldKeywords; // Restore keywords.

@@ -45,7 +45,7 @@ function doSomething(type: Type) {
 
   expectType<never>(type); // Compiler error! Forgot `type === "bar"`.
 
-  throw new TypeError(`Unknown type: ${type}`)
+  throw new TypeError(`Unknown type: ${type}`);
 }
 
 // Test function signatures.

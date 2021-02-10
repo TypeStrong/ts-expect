@@ -7,14 +7,14 @@ describe("transform", () => {
   const paths = [
     join(__dirname, "__fixtures__/test-var-shadow.ts"),
     join(__dirname, "__fixtures__/test-import-spread.ts"),
-    join(__dirname, "__fixtures__/test-import-star.ts")
+    join(__dirname, "__fixtures__/test-import-star.ts"),
   ];
 
   it("should strip expects", () => {
     const host = ts.createCompilerHost({});
     const program = ts.createProgram(paths, {}, host);
     const result = program.emit(undefined, undefined, undefined, undefined, {
-      before: [transform()]
+      before: [transform()],
     });
 
     expect(result.diagnostics).toEqual([]);
