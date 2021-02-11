@@ -20,10 +20,10 @@ export type TypeOf<Target, Value> = Exclude<Value, Target> extends never
  * expectType<TypeEqual<number, number>>(true);
  * ```
  */
-export type TypeEqual<Target, Value> = Exclude<Target, Value> extends never
-  ? Exclude<Value, Target> extends never
-    ? true
-    : false
+export type TypeEqual<Target, Value> = (<T>() => T extends Target
+  ? 1
+  : 2) extends <T>() => T extends Value ? 1 : 2
+  ? true
   : false;
 
 /**

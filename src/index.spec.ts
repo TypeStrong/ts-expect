@@ -33,6 +33,20 @@ describe("ts expect", () => {
 
       expectType<TypeEqual<1 | 2, 1>>(false);
       expectType<TypeEqual<1 | 2, 1 | 2>>(true);
+
+      expectType<TypeEqual<never, never>>(true);
+    });
+
+    it("should check for `any` type", () => {
+      expectType<TypeEqual<any, unknown>>(false);
+      expectType<TypeEqual<any, string>>(false);
+      expectType<TypeEqual<any, number>>(false);
+      expectType<TypeEqual<any, boolean>>(false);
+      expectType<TypeEqual<any, object>>(false);
+      expectType<TypeEqual<any, never>>(false);
+      expectType<TypeEqual<any, any>>(true);
+
+      expectType<TypeEqual<TypeEqual<string, any>, false>>(true);
     });
   });
 });
