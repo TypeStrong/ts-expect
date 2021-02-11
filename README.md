@@ -5,9 +5,7 @@
 [![Build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
 
-> Checks TypeScript types match expected values.
-
-**Why?** This is useful for designing type assertions against the TypeScript compiler. It allows you to catch a subset of issues in the compiler before runtime.
+> Checks values in TypeScript match expectations.
 
 ## Installation
 
@@ -17,40 +15,67 @@ npm install ts-expect --save
 
 ## Usage
 
+**TS Expect** exports a function, named `expectType`, that does _nothing at all_. Instead, it depends on the TypeScript compiler and a generic to test the type of a "value" passed to `expectType` is assignable to its generic in the type system.
+
 ```ts
-import { expectType, TypeOf, TypeEqual } from "ts-expect";
+import { expectType } from "ts-expect";
 
-expectType<string>(123); // Compiler error!
-
-expectType<TypeOf<number, 123>>(true);
-expectType<TypeEqual<"test", "test">>(true);
+expectType<string>("test");
+expectType<number>(123);
+expectType<number>("test"); // Compiler error!
 ```
 
-### Examples
+### How does this work?
+
+TypeScript generics allow you to pass any value that implements the generic type. In this case, we're defining the generic explicitly as we pass the value so any value that isn't implementing our type is rejected by the TypeScript compiler. It's really that simple! The technical implementation is just `<T>(value: T) => void`.
+
+TypeScript has a ["top type"](https://en.wikipedia.org/wiki/Top_type) named `unknown` and a ["bottom type"](https://en.wikipedia.org/wiki/Bottom_type) named `never`. Using the top type to check assignability would mean every value is accepted, and the bottom type would mean nothing is accepted (except `never` itself). As a result, you probably wouldn't want to use `unknown` because everything would pass that check.
+
+A quick note on `any`: it's an "off switch" for TypeScript. It acts as a magical every type, both a top and a bottom type. This means it's assignable to everything and passing an `any` value to `expectType` will always pass the check.
+
+### Testing definitions
+
+Use with built-in or custom TypeScript [utility types](https://www.typescriptlang.org/docs/handbook/utility-types.html) to implement a simple testing framework for your type definitions. If it compiles, it's valid!
 
 ```ts
-type Type = "foo" | "bar";
+import { expectType, TypeEqual } from "ts-expect";
+import { add } from "./adder";
 
-function validateType(type: string): type is Type {
-  if (type === "foo") {
-    expectType<TypeOf<typeof type, Type>>(true); // Compiler error! Forgot `type === "bar"`.
-    return true;
+expectType<number>(add(1, 2));
+expectType<TypeEqual<boolean, ReturnType<typeof add>>>(true);
+expectType<TypeEqual<[number, number], Parameters<typeof add>>>(true);
+```
+
+### Exhaustive checks
+
+Use with TypeScript's [type narrowing](https://sandersn.github.io/manual/Widening-and-Narrowing-in-Typescript.html) to test that `value` is what you expect. If you expand `SupportedValue` with other values in the future, it'll fail the `expectType<never>` check because you haven't used all the possible values.
+
+```ts
+type SupportedValue = "a" | "b";
+
+function doSomething(value: SupportedValue) {
+  switch (value) {
+    case "a":
+      return true;
+    case "b":
+      return true;
+    default:
+      expectType<never>(value);
   }
-
-  return false;
 }
-
-function doSomething(type: Type) {
-  if (type === "foo") return; // Do something with `foo`.
-
-  expectType<never>(type); // Compiler error! Forgot `type === "bar"`.
-
-  throw new TypeError(`Unknown type: ${type}`);
-}
-
-// Test function signatures.
-expectType<TypeOf<[number], Parameters<typeof validateType>>>(false);
 ```
+
+## Exported Types
+
+**TS Expect** comes with some utility types built-in to make testing easier. File [an issue](https://github.com/TypeStrong/ts-expect/issues) if you think something is missing!
+
+### TypeEqual<Target, Value>
+
+Checks that `Value` is equal to the same type as `Target`. This is a stricter check that avoids issues with testing sub-types. If you want to verify that an object is identical shape, not just "implements" `Target`, this is the type you need.
+
+### TypeOf<Target, Value>
+
+Checks that `Value` is assignable to `Target`. This is effectively the same as `expectType<Type>(value)`, except it's implemented in the type system directly so you can use it to test types instead of values by checking the result is `true` or `false`.
 
 ## Prior Works
 
