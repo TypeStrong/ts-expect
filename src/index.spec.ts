@@ -42,7 +42,7 @@ describe("ts expect", () => {
       expectType<TypeEqual<any, string>>(false);
       expectType<TypeEqual<any, number>>(false);
       expectType<TypeEqual<any, boolean>>(false);
-      expectType<TypeEqual<any, object>>(false);
+      expectType<TypeEqual<any, Record<PropertyKey, unknown>>>(false);
       expectType<TypeEqual<any, never>>(false);
       expectType<TypeEqual<any, any>>(true);
 
