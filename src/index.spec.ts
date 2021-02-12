@@ -1,4 +1,4 @@
-import { expectType, TypeOf, TypeEqual } from "./index";
+import { expectType, expectNever, TypeOf, TypeEqual } from "./index";
 
 describe("ts expect", () => {
   it("should expect types", () => {
@@ -10,6 +10,25 @@ describe("ts expect", () => {
     const result = expectType("");
 
     expect(result).toEqual(undefined);
+  });
+
+  describe("expectNever", () => {
+    type SupportedValue = "a" | "b";
+
+    function doSomething(value: SupportedValue): boolean {
+      switch (value) {
+        case "a":
+          return true;
+        case "b":
+          return true;
+        default:
+          return expectNever(value);
+      }
+    }
+
+    it("should support exhaustive check", () => {
+      expectType<TypeEqual<boolean, ReturnType<typeof doSomething>>>(true);
+    });
   });
 
   describe("TypeOf", () => {

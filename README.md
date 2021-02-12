@@ -48,9 +48,11 @@ expectType<TypeEqual<[number, number], Parameters<typeof add>>>(true);
 
 ### Exhaustive checks
 
-Use with TypeScript's [type narrowing](https://sandersn.github.io/manual/Widening-and-Narrowing-in-Typescript.html) to test that `value` is what you expect. If you expand `SupportedValue` with other values in the future, it'll fail the `expectType<never>` check because you haven't used all the possible values.
+Use with TypeScript's [type narrowing](https://sandersn.github.io/manual/Widening-and-Narrowing-in-Typescript.html) to test that `value` is what you expect. If you expand `SupportedValue` with other values in the future, it'll fail an `expectType<never>` or `expectNever` check because you haven't used all the possible values.
 
 ```ts
+import { expectNever } from "ts-expect";
+
 type SupportedValue = "a" | "b";
 
 function doSomething(value: SupportedValue) {
@@ -60,10 +62,12 @@ function doSomething(value: SupportedValue) {
     case "b":
       return true;
     default:
-      expectType<never>(value);
+      return expectNever(value);
   }
 }
 ```
+
+**Tip**: Use `expectNever(value)` when you need to return `never` (i.e. throw an error if the code runs), use `expectType<never>(value)` when you want to do tests in your code and expect the actual expression to be executed (i.e. do type checks but ignore the runtime).
 
 ## Exported Types
 
