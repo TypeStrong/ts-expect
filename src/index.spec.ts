@@ -29,6 +29,10 @@ describe("ts expect", () => {
     it("should support exhaustive check", () => {
       expectType<TypeEqual<boolean, ReturnType<typeof doSomething>>>(true);
     });
+
+    it("should throw if called", () => {
+      expect(expectNever).toThrowError(TypeError);
+    });
   });
 
   describe("TypeOf", () => {
