@@ -34,7 +34,7 @@ export type TypeEqual<Target, Value> = (<T>() => T extends Target
  * expectType<boolean>(true);
  * ```
  */
-export const expectType = <Type>(value: Type): void => void 0;
+export const expectType = <Type>(_: Type): void => void 0;
 
 /**
  * Asserts the `value` type is `never`, i.e. this function should never be called.

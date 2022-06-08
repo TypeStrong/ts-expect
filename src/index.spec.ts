@@ -1,3 +1,4 @@
+import { describe, it, expect } from "@jest/globals";
 import { expectType, expectNever, TypeOf, TypeEqual } from "./index";
 
 describe("ts expect", () => {
