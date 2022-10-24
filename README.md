@@ -42,7 +42,7 @@ import { expectType, TypeEqual } from "ts-expect";
 import { add } from "./adder";
 
 expectType<number>(add(1, 2));
-expectType<TypeEqual<boolean, ReturnType<typeof add>>>(true);
+expectType<TypeEqual<number, ReturnType<typeof add>>>(true);;
 expectType<TypeEqual<[number, number], Parameters<typeof add>>>(true);
 ```
 
